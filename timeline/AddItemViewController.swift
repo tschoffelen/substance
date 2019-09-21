@@ -28,6 +28,8 @@ class AddItemViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     var tagsHeight: CGFloat = 144
     
+    var mainActivity = Activity()
+    
     static var defaultTagsByUsage = [Activity]()
     
     static var contactsCache = [String: CNContact]()
@@ -56,7 +58,21 @@ class AddItemViewController: UIViewController, UICollectionViewDelegate, UIColle
         let noteAct = Activity()
         noteAct.color = UIColor.systemGreen
         noteAct.title = "Note"
+        noteAct.type = "note"
         noteAct.icon = "doc.fill"
+        mainActivity = noteAct
+        
+        let todoAct = Activity()
+        todoAct.color = UIColor.systemYellow
+        todoAct.title = "Todo"
+        todoAct.type = "todo"
+        todoAct.icon = "star.fill"
+        
+        let ideaAct = Activity()
+        ideaAct.color = UIColor.systemOrange
+        ideaAct.title = "Idea"
+        ideaAct.type = "idea"
+        ideaAct.icon = "lightbulb.fill"
         
         let cigAct = Activity()
         cigAct.color = UIColor.systemBlue
@@ -65,7 +81,7 @@ class AddItemViewController: UIViewController, UICollectionViewDelegate, UIColle
         cigAct.icon = "staroflife.fill"
         cigAct.body = "Smoked a cigarette"
 
-        self.activities = [noteAct, cigAct]
+        self.activities = [noteAct, todoAct, ideaAct, cigAct]
         self.activities += AddItemViewController.defaultTagsByUsage.enumerated().compactMap{
             $0.offset < 24 ? $0.element : nil
         }
@@ -115,8 +131,14 @@ class AddItemViewController: UIViewController, UICollectionViewDelegate, UIColle
         ideaTag.color = UIColor.systemGray
         ideaTag.icon = "tag"
         
+        let conTag = Activity()
+        conTag.text = "#concept"
+        conTag.title = "concept"
+        conTag.color = UIColor.systemGray
+        conTag.icon = "tag"
         
-        AddItemViewController.defaultTagsByUsage = [ideaTag]
+        
+        AddItemViewController.defaultTagsByUsage = [conTag, ideaTag]
     }
 
     func loadContacts() {
@@ -225,6 +247,10 @@ class AddItemViewController: UIViewController, UICollectionViewDelegate, UIColle
 
         let item = TimelineItem()
         item.body = self.bodyLabel!.text
+        item.type = self.mainActivity.type!
+        item.color = self.mainActivity.color
+        item.title = self.mainActivity.title!
+        item.icon = self.mainActivity.icon
         
         try! Util.realm.write() {
             Util.realm.add(item)
@@ -263,6 +289,13 @@ class AddItemViewController: UIViewController, UICollectionViewDelegate, UIColle
             self.saveButton?.isEnabled = true
 
             return
+        }
+        
+        if act.type != nil {
+            mainActivity = act
+            
+            navigationItem.title = mainActivity.title
+            navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: mainActivity.color]
         }
 
         if act.text != nil {
