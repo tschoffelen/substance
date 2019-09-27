@@ -14,7 +14,7 @@ class ItemTableViewCell: UITableViewCell {
     @IBOutlet var titleLabel: UILabel?
     @IBOutlet var dateLabel: UILabel?
     @IBOutlet var bodyLabel: UITextView?
-    
+
     func setup(item: TimelineItem) {
         self.colorView?.backgroundColor = item.color
         self.titleLabel?.textColor = item.color
@@ -22,18 +22,8 @@ class ItemTableViewCell: UITableViewCell {
         self.bodyLabel?.text = item.body
         self.dateLabel?.text = item.createdAt.relativeTime
 
-        if #available(iOS 13.0, *) {
-            self.bodyLabel?.tintColor = UIColor.label
-        } else {
-            self.bodyLabel?.tintColor = UIColor.black
-        }
-        
-        if #available(iOS 13.0, *) {
-            self.iconView?.image = UIImage(systemName: item.icon)
-        } else {
-            // Fallback on earlier versions
-            // TODO: Add fallback tag image
-        }
+        self.bodyLabel?.tintColor = UIColor.label
+        self.iconView?.image = UIImage(systemName: item.icon)
     }
 
 }

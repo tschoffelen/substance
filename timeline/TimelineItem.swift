@@ -10,19 +10,19 @@ import RealmSwift
 import IceCream
 
 public final class TimelineItem: Object {
-    
+
     @objc dynamic var id = UUID().uuidString
 
     @objc dynamic var body: String?
     @objc dynamic var title = "Note"
     @objc dynamic var type = "note"
     @objc dynamic var icon = "doc.fill"
-    
+
     @objc dynamic var createdAt = Date()
     @objc dynamic public var isDeleted = false
-    
+
     @objc dynamic var activity: Activity?
-    
+
     @objc dynamic var colorAsHex: String?
     @objc dynamic var color: UIColor {
         get {
@@ -41,7 +41,7 @@ public final class TimelineItem: Object {
     override public static func indexedProperties() -> [String] {
         return ["type", "title"]
     }
-    
+
 }
 
 extension TimelineItem: CKRecordConvertible {

@@ -10,7 +10,7 @@ import RealmSwift
 import IceCream
 
 public final class Activity: Object {
-    
+
     @objc dynamic var id = UUID().uuidString
 
     @objc dynamic var title: String?
@@ -18,10 +18,10 @@ public final class Activity: Object {
     @objc dynamic var type: String?
     @objc dynamic var body: String?
     @objc dynamic var icon: String = "doc.fill"
-    
+
     @objc dynamic var createdAt = Date()
     @objc dynamic public var isDeleted = false
-    
+
     @objc dynamic var colorAsHex: String?
     @objc dynamic var color: UIColor {
         get {
@@ -32,7 +32,7 @@ public final class Activity: Object {
             colorAsHex = newColor.toHex
         }
     }
-    
+
     override public static func primaryKey() -> String? {
         return "id"
     }

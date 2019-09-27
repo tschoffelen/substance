@@ -1,0 +1,9 @@
+excluded:
+  - Pods
+disabled_rules:
+  - force_try
+identifier_name:
+  min_length: 2
+line_length: 150
+type_body_length: 500
+file_length: 500

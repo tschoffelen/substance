@@ -12,68 +12,68 @@ import RealmSwift
 class AddItemViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITextViewDelegate {
 
     @IBOutlet var bodyLabel: UITextView?
-    
+
     @IBOutlet var saveButton: UIBarButtonItem?
-    
+
     @IBOutlet var collectionView: UICollectionView?
-    
+
     @IBOutlet var tagsConstraint: NSLayoutConstraint?
-    
+
     var activities: [Activity] = []
-    
+
     var replacementInstance = ""
     var tagsMode = ""
     var tagsShown = true
     var keyboardHeight: CGFloat = 329
-    
+
     var tagsHeight: CGFloat = 144
-    
+
     var mainActivity = Activity()
-    
+
     static var defaultTagsByUsage = [Activity]()
-    
+
     static var contactsCache = [String: CNContact]()
-    
+
     static var contactStore = CNContactStore()
-    
+
     static var personsByUsage = [Activity]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.bodyLabel?.textContainerInset = UIEdgeInsetsMake(34, 28, 34, 28)
-        
+
+        self.bodyLabel?.textContainerInset = UIEdgeInsets(top: 34, left: 28, bottom: 34, right: 28)
+
         self.bodyLabel?.delegate = self
-        
+
         self.tagsConstraint?.constant = tagsHeight
-        
+
         if AddItemViewController.contactsCache.count == 0 {
             self.loadContacts()
         }
-        
+
         if AddItemViewController.defaultTagsByUsage.count == 0 {
             self.loadTags()
         }
-        
+
         let noteAct = Activity()
         noteAct.color = UIColor.systemGreen
         noteAct.title = "Note"
         noteAct.type = "note"
         noteAct.icon = "doc.fill"
         mainActivity = noteAct
-        
+
         let todoAct = Activity()
         todoAct.color = UIColor.systemYellow
         todoAct.title = "Todo"
         todoAct.type = "todo"
         todoAct.icon = "star.fill"
-        
+
         let ideaAct = Activity()
         ideaAct.color = UIColor.systemOrange
         ideaAct.title = "Idea"
         ideaAct.type = "idea"
         ideaAct.icon = "lightbulb.fill"
-        
+
         let cigAct = Activity()
         cigAct.color = UIColor.systemBlue
         cigAct.type = "cig"
@@ -81,22 +81,28 @@ class AddItemViewController: UIViewController, UICollectionViewDelegate, UIColle
         cigAct.icon = "staroflife.fill"
         cigAct.body = "Smoked a cigarette"
 
-        self.activities = [noteAct, todoAct, ideaAct, cigAct]
-        self.activities += AddItemViewController.defaultTagsByUsage.enumerated().compactMap{
+        let weedAct = Activity()
+        weedAct.color = UIColor.systemBlue
+        weedAct.type = "weed"
+        weedAct.title = "Weed"
+        weedAct.icon = "staroflife.fill"
+        weedAct.body = "Smoked a joint"
+
+        self.activities = [noteAct, todoAct, ideaAct, cigAct, weedAct]
+        self.activities += AddItemViewController.defaultTagsByUsage.enumerated().compactMap {
             $0.offset < 24 ? $0.element : nil
         }
-        self.activities += AddItemViewController.personsByUsage.enumerated().compactMap{
+        self.activities += AddItemViewController.personsByUsage.enumerated().compactMap {
             $0.offset < 24 ? $0.element : nil
         }
-        
-        NotificationCenter.default.addObserver(
-            self, selector: #selector(keyboardWillShow),
-            name: .UIKeyboardWillShow, object: nil
+
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification, object: nil
         )
     }
 
     @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             self.keyboardHeight = keyboardSize.height
         }
     }
@@ -111,7 +117,8 @@ class AddItemViewController: UIViewController, UICollectionViewDelegate, UIColle
 //            }
 //            for entity in item.entities! {
 //                if let entityDict = entity as? [String: Any?] {
-//                    if let entityType = entityDict["type"] as? String, let entityBody = entityDict["body"] as? String {
+//                    if let entityType = entityDict["type"] as? String,
+//                        let entityBody = entityDict["body"] as? String {
 //                        if entityType == "tag", entityBody.count > 0 {
 //                            if tags.keys.contains(entityBody) {
 //                                tags[entityBody]! += 1
@@ -130,14 +137,13 @@ class AddItemViewController: UIViewController, UICollectionViewDelegate, UIColle
         ideaTag.title = "idea"
         ideaTag.color = UIColor.systemGray
         ideaTag.icon = "tag"
-        
+
         let conTag = Activity()
         conTag.text = "#concept"
         conTag.title = "concept"
         conTag.color = UIColor.systemGray
         conTag.icon = "tag"
-        
-        
+
         AddItemViewController.defaultTagsByUsage = [conTag, ideaTag]
     }
 
@@ -148,12 +154,18 @@ class AddItemViewController: UIViewController, UICollectionViewDelegate, UIColle
                 AddItemViewController.contactsCache = [:]
                 return
             }
-            
+
             let contactsStore = AddItemViewController.contactStore
-            let keys = [CNContactGivenNameKey, CNContactFamilyNameKey, CNContactMiddleNameKey, CNContactBirthdayKey, CNContactImageDataKey]
-            
+            let keys = [
+                CNContactGivenNameKey,
+                CNContactFamilyNameKey,
+                CNContactMiddleNameKey,
+                CNContactBirthdayKey,
+                CNContactImageDataKey
+            ]
+
             var allContainers: [CNContainer] = []
-            
+
             do {
                 allContainers = try contactsStore.containers(matching: nil)
             } catch {
@@ -164,21 +176,23 @@ class AddItemViewController: UIViewController, UICollectionViewDelegate, UIColle
             var tags = [Activity: Int]()
             for container in allContainers {
                 let fetchPredicate = CNContact.predicateForContactsInContainer(withIdentifier: container.identifier)
-                
+
                 do {
-                    let containerResults = try contactsStore.unifiedContacts(matching: fetchPredicate, keysToFetch: keys as [CNKeyDescriptor])
+                    let containerResults = try contactsStore.unifiedContacts(
+                        matching: fetchPredicate, keysToFetch: keys as [CNKeyDescriptor])
                     for contact in containerResults {
-                        let text = "@\(contact.givenName)\(contact.middleName)\(contact.familyName)".lowercased().replacingOccurrences(of: " ", with: "")
+                        let text = "@\(contact.givenName)\(contact.middleName)\(contact.familyName)"
+                            .lowercased().replacingOccurrences(of: " ", with: "")
                         AddItemViewController.contactsCache[text] = contact
                         let activity = Activity()
                         activity.text = text
-                        activity.title = "\(contact.givenName) \(contact.middleName) \(contact.familyName)".replacingOccurrences(of: "  ", with: " ")
+                        activity.title = "\(contact.givenName) \(contact.middleName) \(contact.familyName)"
+                            .replacingOccurrences(of: "  ", with: " ")
                         activity.color = UIColor.systemGray
                         activity.icon = "person"
                         tags[activity] = 0
                     }
-                }
-                catch {
+                } catch {
                     print("Error fetching results for container")
                 }
             }
@@ -191,7 +205,8 @@ class AddItemViewController: UIViewController, UICollectionViewDelegate, UIColle
 //                for entity in item.entities! {
 //                    if let entityDict = entity as? [String: Any?] {
 //                        print(entityDict)
-//                        if let entityType = entityDict["type"] as? String, let entityBody = entityDict["body"] as? String {
+//                        if let entityType = entityDict["type"] as? String,
+//                            let entityBody = entityDict["body"] as? String {
 //                            if entityType == "person", entityBody.count > 0 {
 //                                if tags.keys.contains(entityBody) {
 //                                    tags[entityBody]! += 1
@@ -218,31 +233,32 @@ class AddItemViewController: UIViewController, UICollectionViewDelegate, UIColle
         switch authorizationStatus {
         case .authorized:
             completionHandler(true)
-            
+
         case .denied, .notDetermined:
-            AddItemViewController.contactStore.requestAccess(for: CNEntityType.contacts, completionHandler: { (access, accessError) -> Void in
+            AddItemViewController.contactStore.requestAccess(
+                for: CNEntityType.contacts, completionHandler: { (access, _) -> Void in
                 if access {
                     completionHandler(access)
                 }
             })
-            
+
         default:
             completionHandler(false)
         }
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+
         self.bodyLabel?.becomeFirstResponder()
     }
-    
+
     @IBAction func saveItem() {
-        if(self.bodyLabel!.text.count < 1) {
+        if self.bodyLabel!.text.count < 1 {
             self.dismiss(animated: true)
             return
         }
-        
+
         self.saveButton?.isEnabled = false
 
         let item = TimelineItem()
@@ -251,28 +267,31 @@ class AddItemViewController: UIViewController, UICollectionViewDelegate, UIColle
         item.color = self.mainActivity.color
         item.title = self.mainActivity.title!
         item.icon = self.mainActivity.icon
-        
-        try! Util.realm.write() {
+
+        try! Util.realm.write {
             Util.realm.add(item)
         }
-        
+
         self.dismiss(animated: true)
         self.saveButton?.isEnabled = true
     }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TagCollectionViewCell", for: indexPath) as! TagCollectionViewCell
-        cell.setup(self.activities[indexPath.row])
-        
+
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TagCollectionViewCell", for: indexPath)
+        if let itemCell = cell as? TagCollectionViewCell {
+            itemCell.setup(self.activities[indexPath.row])
+        }
+
         return cell
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let act = self.activities[indexPath.row]
-        
+
         if act.type != nil && act.body != nil {
             self.saveButton?.isEnabled = false
-            
+
             let item = TimelineItem()
             item.body = act.body
             item.title = act.title!
@@ -281,41 +300,44 @@ class AddItemViewController: UIViewController, UICollectionViewDelegate, UIColle
             item.icon = act.icon
             // item.activity = act
 
-            try! Util.realm.write() {
+            try! Util.realm.write {
                 Util.realm.add(item)
             }
-            
+
             self.dismiss(animated: true)
             self.saveButton?.isEnabled = true
 
             return
         }
-        
+
         if act.type != nil {
             mainActivity = act
-            
+
             navigationItem.title = mainActivity.title
-            navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: mainActivity.color]
+            navigationController?.navigationBar.titleTextAttributes = [
+                NSAttributedString.Key.foregroundColor: mainActivity.color
+            ]
         }
 
         if act.text != nil {
             let tag = act.text! + " "
-            
+
             if self.bodyLabel?.selectedRange.location != nil, self.replacementInstance != "" {
                 var curCursorPos = self.bodyLabel!.selectedRange.location - self.replacementInstance.count + tag.count
                 if curCursorPos < 0 {
                     curCursorPos = 0
                 }
-                self.bodyLabel?.text = self.bodyLabel!.text.replacingOccurrences(of: self.replacementInstance, with: tag)
-                self.bodyLabel?.selectedRange = NSMakeRange(curCursorPos, 0)
+                self.bodyLabel?.text = self.bodyLabel!.text.replacingOccurrences(
+                    of: self.replacementInstance, with: tag)
+                self.bodyLabel?.selectedRange = NSRange(location: curCursorPos, length: 0)
             } else {
                 self.bodyLabel?.text = self.bodyLabel!.text + " \(tag)"
             }
         }
-            
+
         self.hideTags()
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.activities.count
     }
@@ -337,11 +359,11 @@ class AddItemViewController: UIViewController, UICollectionViewDelegate, UIColle
             self.hideTags()
         }
     }
-    
+
     func forComparison(_ str: String) -> String {
         return str.folding(options: .diacriticInsensitive, locale: .current).lowercased()
     }
-    
+
     func filterPersons(_ filter: String) {
         if self.tagsMode == "persons", filter.count > 1 {
             // Filter
@@ -360,10 +382,10 @@ class AddItemViewController: UIViewController, UICollectionViewDelegate, UIColle
             self.tagsMode = "persons"
             self.loadDefaultPersons()
         }
-        
+
         self.showTags()
     }
-    
+
     func filterTags(_ filter: String) {
         if self.tagsMode == "tags", filter.count > 1 {
             // Filter
@@ -382,22 +404,22 @@ class AddItemViewController: UIViewController, UICollectionViewDelegate, UIColle
             self.tagsMode = "tags"
             self.loadDefaultTags()
         }
-        
+
         self.showTags()
     }
-    
+
     func loadDefaultPersons() {
-        self.activities = AddItemViewController.personsByUsage.enumerated().compactMap{
+        self.activities = AddItemViewController.personsByUsage.enumerated().compactMap {
             $0.offset < 24 ? $0.element : nil
         }
     }
-    
+
     func loadDefaultTags() {
-        self.activities = AddItemViewController.defaultTagsByUsage.enumerated().compactMap{
+        self.activities = AddItemViewController.defaultTagsByUsage.enumerated().compactMap {
             $0.offset < 24 ? $0.element : nil
         }
     }
-    
+
     func hideTags() {
         if self.tagsShown {
             UIView.animate(withDuration: 0.5) {
@@ -405,7 +427,7 @@ class AddItemViewController: UIViewController, UICollectionViewDelegate, UIColle
             }
             self.tagsShown = false
         }
-        
+
         self.activities = []
         self.collectionView?.reloadData()
     }
@@ -415,16 +437,16 @@ class AddItemViewController: UIViewController, UICollectionViewDelegate, UIColle
             self.hideTags()
             return
         }
-        
+
         self.collectionView?.reloadData()
-        
+
         if !self.tagsShown {
             UIView.animate(withDuration: 0.5) {
                 self.tagsConstraint?.constant = self.tagsHeight
             }
-            
+
             self.tagsShown = true
         }
     }
-    
+
 }
