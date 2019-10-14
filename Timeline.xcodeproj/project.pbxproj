@@ -248,8 +248,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E9C41ADE1E50B13C005BAFC2 /* Build configuration list for PBXNativeTarget "timeline" */;
 			buildPhases = (
-				E979AAAF233E873C00AA2595 /* Swiftlint */,
 				D7C641E1F640EDF96527550D /* [CP] Check Pods Manifest.lock */,
+				E979AAAF233E873C00AA2595 /* Swiftlint */,
 				E9C41AC81E50B13C005BAFC2 /* Sources */,
 				E9C41AC91E50B13C005BAFC2 /* Frameworks */,
 				E9C41ACA1E50B13C005BAFC2 /* Resources */,
@@ -507,7 +507,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = co.schof.timeline.bookmark;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -522,7 +522,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = co.schof.timeline.bookmark;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
