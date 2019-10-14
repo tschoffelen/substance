@@ -55,6 +55,20 @@ class AddItemViewController: UIViewController, UICollectionViewDelegate, UIColle
             self.loadTags()
         }
 
+        self.activities = self.getDefaultActivities()
+        self.activities += AddItemViewController.defaultTagsByUsage.enumerated().compactMap {
+            $0.offset < 24 ? $0.element : nil
+        }
+        self.activities += AddItemViewController.personsByUsage.enumerated().compactMap {
+            $0.offset < 24 ? $0.element : nil
+        }
+
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification, object: nil
+        )
+    }
+
+    func getDefaultActivities() -> [Activity] {
         let noteAct = Activity()
         noteAct.color = UIColor.systemGreen
         noteAct.title = "Note"
@@ -88,17 +102,7 @@ class AddItemViewController: UIViewController, UICollectionViewDelegate, UIColle
         weedAct.icon = "staroflife.fill"
         weedAct.body = "Smoked a joint"
 
-        self.activities = [noteAct, todoAct, ideaAct, cigAct, weedAct]
-        self.activities += AddItemViewController.defaultTagsByUsage.enumerated().compactMap {
-            $0.offset < 24 ? $0.element : nil
-        }
-        self.activities += AddItemViewController.personsByUsage.enumerated().compactMap {
-            $0.offset < 24 ? $0.element : nil
-        }
-
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow),
-            name: UIResponder.keyboardWillShowNotification, object: nil
-        )
+        return [noteAct, todoAct, ideaAct, cigAct, weedAct]
     }
 
     @objc func keyboardWillShow(notification: NSNotification) {

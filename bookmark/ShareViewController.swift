@@ -27,8 +27,7 @@ class ShareViewController: SLComposeServiceViewController {
         for item in self.extensionContext!.inputItems {
             if let inputItem = item as? NSExtensionItem {
                 for provider in inputItem.attachments! {
-                    if let itemProvider = provider as? NSItemProvider,
-                        itemProvider.hasItemConformingToTypeIdentifier("public.url") {
+                    if provider.hasItemConformingToTypeIdentifier("public.url") {
                         return true
                     }
                 }
@@ -42,11 +41,8 @@ class ShareViewController: SLComposeServiceViewController {
         for item in self.extensionContext!.inputItems {
             if let inputItem = item as? NSExtensionItem {
                 for provider in inputItem.attachments! {
-                    if let itemProvider = provider as? NSItemProvider,
-                        itemProvider.hasItemConformingToTypeIdentifier("public.url") {
-                        itemProvider.loadItem(forTypeIdentifier: "public.url",
-                                              options: nil,
-                                              completionHandler: { (result, _) in
+                   if provider.hasItemConformingToTypeIdentifier("public.url") {
+                        provider.loadItem(forTypeIdentifier: "public.url", options: nil, completionHandler: { (result, _) in
                             self.post(url: String(describing: result!))
                         })
                     }
