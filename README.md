@@ -1,18 +1,16 @@
-# Timeline
+# Substance
 
 **An iPhone app to track your notes, bookmarks, tasks and habits.**
 
-The Timeline app makes it easy to keep track of your thoughts, ideas and habits.
-With the ability to use hashtags, mention your contacts, and the ability to
-create custom activity types, you can use it to track for almost everything,
-from your tasks to how many cigarettes you smoke per day.
+The Substance app makes it easy to keep track of your thoughts, ideas and
+habits. With the ability to use hashtags, mention your contacts, and the ability to create custom activity types, you can use it to track for almost everything, from your tasks to how many cigarettes you smoke per day.
 
 ----
 
 
 ## Development
 
-Simply clone the repo, open `timeline.xcworkspace` in Xcode, and run it!
+Simply clone the repo, open `Substance.xcworkspace` in Xcode, and run it!
 
 If you need to update dependencies, change the `Podfile` and run `pod update`.
 

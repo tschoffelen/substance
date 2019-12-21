@@ -1,7 +1,7 @@
 platform :ios, '11.0'
 use_frameworks!
 
-target 'timeline' do
+target 'Substance' do
   pod 'Fabric'
   pod 'Crashlytics'
   pod 'RealmSwift'

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SafariServices
 import RealmSwift
 import RxRealm
 import RxSwift
@@ -36,6 +37,7 @@ class ViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // TODO: implement detail view
         // let detailViewController = self.mainStoryboard?.instantiateViewController(
         //     withIdentifier: "ArtistViewController") as! ArtistViewController
         // detailViewController.setArtist(
@@ -78,7 +80,24 @@ class ViewController: UITableViewController {
     }
 
     public func handleTap(type: String, value: String) {
-         print(type, value)
+        switch type {
+        case "url":
+            if let url = URL(string: value) {
+                let config = SFSafariViewController.Configuration()
+                config.entersReaderIfAvailable = true
+
+                let vc = SFSafariViewController(url: url, configuration: config)
+                present(vc, animated: true)
+            }
+        case "label":
+            // TODO: implement me (tap on hashtag)
+            print(type, value)
+        case "contact":
+            // TODO: implement me (tap on person name)
+            print(type, value)
+        default:
+            print(type, value)
+        }
     }
 
 }
