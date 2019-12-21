@@ -26,25 +26,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 SyncObject<TimelineItem>(),
                 SyncObject<Activity>()
             ], databaseScope: .private)
+
         application.registerForRemoteNotifications()
     }
 
-    func application(_ application: UIApplication,
-                     didReceiveRemoteNotification userInfo: [AnyHashable: Any],
-                     fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-
-        if let dict = userInfo as? [String: NSObject] {
-            let notification = CKNotification(fromRemoteNotificationDictionary: dict)
-            if let subscriptionID = notification?.subscriptionID, IceCreamSubscription.allIDs.contains(subscriptionID) {
-                NotificationCenter.default.post(
-                    name: Notifications.cloudKitDataDidChangeRemotely.name,
-                    object: nil,
-                    userInfo: userInfo
-                )
-                completionHandler(.newData)
-            }
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        
+        if let dict = userInfo as? [String: NSObject], let notification = CKNotification(fromRemoteNotificationDictionary: dict), let subscriptionID = notification.subscriptionID, IceCreamSubscription.allIDs.contains(subscriptionID) {
+            NotificationCenter.default.post(name: Notifications.cloudKitDataDidChangeRemotely.name, object: nil, userInfo: userInfo)
+            completionHandler(.newData)
         }
-
+        
     }
 
 }

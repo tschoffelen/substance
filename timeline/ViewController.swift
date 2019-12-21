@@ -67,6 +67,7 @@ class ViewController: UITableViewController {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "ItemTableViewCell", for: indexPath)
             as? ItemTableViewCell {
             if self.items.count > indexPath.row {
+                cell.delegate = self
                 cell.setup(item: self.items[indexPath.row])
             }
 
@@ -74,6 +75,10 @@ class ViewController: UITableViewController {
         }
 
         return UITableViewCell()
+    }
+
+    public func handleTap(type: String, value: String) {
+         print(type, value)
     }
 
 }

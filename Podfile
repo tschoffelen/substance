@@ -8,6 +8,7 @@ target 'timeline' do
   pod 'IceCream'
   pod 'RxSwift'
   pod 'RxRealm'
+  pod 'ActiveLabel'
 end
 
 target 'Bookmark' do
