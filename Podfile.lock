@@ -1,8 +1,5 @@
 PODS:
   - ActiveLabel (1.1.0)
-  - Crashlytics (3.14.0):
-    - Fabric (~> 1.10.2)
-  - Fabric (1.10.2)
   - IceCream (1.12.1):
     - RealmSwift
   - Realm (3.19.1):
@@ -14,37 +11,46 @@ PODS:
     - RealmSwift (~> 3.14)
     - RxSwift (~> 5.0)
   - RxSwift (5.0.0)
+  - Sentry (4.4.1):
+    - Sentry/Core (= 4.4.1)
+  - Sentry/Core (4.4.1)
 
 DEPENDENCIES:
   - ActiveLabel
-  - Crashlytics
-  - Fabric
   - IceCream
   - RealmSwift
   - RxRealm
   - RxSwift
+  - Sentry (from `https://github.com/getsentry/sentry-cocoa.git`, tag `4.4.1`)
 
 SPEC REPOS:
   trunk:
     - ActiveLabel
-    - Crashlytics
-    - Fabric
     - IceCream
     - Realm
     - RealmSwift
     - RxRealm
     - RxSwift
 
+EXTERNAL SOURCES:
+  Sentry:
+    :git: https://github.com/getsentry/sentry-cocoa.git
+    :tag: 4.4.1
+
+CHECKOUT OPTIONS:
+  Sentry:
+    :git: https://github.com/getsentry/sentry-cocoa.git
+    :tag: 4.4.1
+
 SPEC CHECKSUMS:
   ActiveLabel: 5e3f4de79a1952d4604b845a0610d4776e4b82b3
-  Crashlytics: 540b7e5f5da5a042647227a5e3ac51d85eed06df
-  Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
   IceCream: b1b9c2d696d18f424039c118fce07bb8e08a15b3
   Realm: fb377747e694c7deb62d402400454134fe321bee
   RealmSwift: 1302b0ab60f3105a2b214a735eeb0938607cf16b
   RxRealm: 1e81dcfca1fb50c3e9b3e1f8102bc875c5156a2e
   RxSwift: 8b0671caa829a763bbce7271095859121cbd895f
+  Sentry: 5d312a04e369154aeac616214f4dfc3cbcc8b296
 
-PODFILE CHECKSUM: 7c2fa62fbd189a0e7926aec218e07e9d57987666
+PODFILE CHECKSUM: 36c79b9c2cb331a8efe503ef1acec060d23cc476
 
 COCOAPODS: 1.8.4

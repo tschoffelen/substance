@@ -25,7 +25,20 @@
 		<key>NSExtensionAttributes</key>
 		<dict>
 			<key>NSExtensionActivationRule</key>
-			<string>TRUEPREDICATE</string>
+			<dict>
+                <key>NSExtensionActivationDictionaryVersion</key>
+                <integer>2</integer>
+                <key>NSExtensionActivationSupportsText</key>
+                <true/>
+                <key>NSExtensionActivationSupportsAttachmentsWithMaxCount</key>
+                <integer>3</integer>
+                <key>NSExtensionActivationSupportsAttachmentsWithMinCount</key>
+                <integer>0</integer>
+                <key>NSExtensionActivationSupportsWebURLWithMaxCount</key>
+                <integer>3</integer>
+                <key>NSExtensionActivationSupportsWebPageWithMaxCount</key>
+                <integer>3</integer>
+            </dict>
 		</dict>
 		<key>NSExtensionMainStoryboard</key>
 		<string>MainInterface</string>

@@ -10,8 +10,8 @@ import UIKit
 extension UIColor {
 
     convenience init(hex: String) {
-        var rgb: UInt32 = 0
-        Scanner(string: hex).scanHexInt32(&rgb)
+        var rgb: UInt64 = 0
+        Scanner(string: hex).scanHexInt64(&rgb)
 
         let red = CGFloat((rgb & 0xFF0000) >> 16) / 255.0
         let green = CGFloat((rgb & 0x00FF00) >> 8) / 255.0

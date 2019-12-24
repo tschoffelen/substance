@@ -16,7 +16,7 @@ class ItemTableViewCell: UITableViewCell {
     @IBOutlet var dateLabel: UILabel?
     @IBOutlet var bodyLabel: ActiveLabel?
 
-    public var delegate: ViewController?
+    public weak var delegate: ViewController?
 
     func setup(item: TimelineItem) {
         self.colorView?.backgroundColor = item.color
