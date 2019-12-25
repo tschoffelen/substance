@@ -82,7 +82,7 @@ class ViewController: UITableViewController {
     public func handleTap(type: String, value: String) {
         switch type {
         case "url":
-            if let url = URL(string: "") {
+            if let url = URL(string: value) {
                 let config = SFSafariViewController.Configuration()
                 config.entersReaderIfAvailable = true
 
