@@ -163,6 +163,7 @@ class AddItemViewController: UIViewController, UICollectionViewDelegate, UIColle
             let keys = [
                 CNContactGivenNameKey,
                 CNContactFamilyNameKey,
+                CNContactMiddleNameKey,
                 CNContactImageDataKey
             ]
 

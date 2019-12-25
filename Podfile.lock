@@ -1,16 +1,16 @@
 PODS:
   - ActiveLabel (1.1.0)
-  - IceCream (1.12.1):
+  - IceCream (1.13.0):
     - RealmSwift
-  - Realm (3.19.1):
-    - Realm/Headers (= 3.19.1)
-  - Realm/Headers (3.19.1)
-  - RealmSwift (3.19.1):
-    - Realm (= 3.19.1)
-  - RxRealm (1.0.0):
-    - RealmSwift (~> 3.14)
+  - Realm (4.3.0):
+    - Realm/Headers (= 4.3.0)
+  - Realm/Headers (4.3.0)
+  - RealmSwift (4.3.0):
+    - Realm (= 4.3.0)
+  - RxRealm (2.0.0):
+    - RealmSwift (~> 4.0)
     - RxSwift (~> 5.0)
-  - RxSwift (5.0.0)
+  - RxSwift (5.0.1)
   - Sentry (4.4.1):
     - Sentry/Core (= 4.4.1)
   - Sentry/Core (4.4.1)
@@ -44,11 +44,11 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   ActiveLabel: 5e3f4de79a1952d4604b845a0610d4776e4b82b3
-  IceCream: b1b9c2d696d18f424039c118fce07bb8e08a15b3
-  Realm: fb377747e694c7deb62d402400454134fe321bee
-  RealmSwift: 1302b0ab60f3105a2b214a735eeb0938607cf16b
-  RxRealm: 1e81dcfca1fb50c3e9b3e1f8102bc875c5156a2e
-  RxSwift: 8b0671caa829a763bbce7271095859121cbd895f
+  IceCream: 48d6eda3b989c410583a8469e009f24ae9740d81
+  Realm: 9357c3589555793e1860a7104a7412bca4a48d99
+  RealmSwift: 402f1e379a8ef82c635313037b043f0f06de880c
+  RxRealm: 900f5c7e6f0a2d6527b56eaf7283f3035ec1e8ba
+  RxSwift: e2dc62b366a3adf6a0be44ba9f405efd4c94e0c4
   Sentry: 5d312a04e369154aeac616214f4dfc3cbcc8b296
 
 PODFILE CHECKSUM: 36c79b9c2cb331a8efe503ef1acec060d23cc476

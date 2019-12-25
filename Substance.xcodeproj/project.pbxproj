@@ -254,6 +254,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E9C41ADE1E50B13C005BAFC2 /* Build configuration list for PBXNativeTarget "Substance" */;
 			buildPhases = (
+				E93B508923B3538200A4C2D1 /* Increment build number */,
 				D7C641E1F640EDF96527550D /* [CP] Check Pods Manifest.lock */,
 				E979AAAF233E873C00AA2595 /* Swiftlint */,
 				E9C41AC81E50B13C005BAFC2 /* Sources */,
@@ -423,6 +424,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if which sentry-cli >/dev/null; then\nexport SENTRY_ORG=schofco\nexport SENTRY_PROJECT=substance\nexport SENTRY_AUTH_TOKEN=41964e6280d74ce292e5c3b6c90ba3a7cc34f68894d642508431bfc5dcc235b6\nERROR=$(sentry-cli upload-dif \"$DWARF_DSYM_FOLDER_PATH\" 2>&1 >/dev/null)\nif [ ! $? -eq 0 ]; then\necho \"warning: sentry-cli - $ERROR\"\nfi\nelse\necho \"warning: sentry-cli not installed, download from https://github.com/getsentry/sentry-cli/releases\"\nfi\n";
+		};
+		E93B508923B3538200A4C2D1 /* Increment build number */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Increment build number";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n";
 		};
 		E979AAAF233E873C00AA2595 /* Swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
