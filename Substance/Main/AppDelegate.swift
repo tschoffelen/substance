@@ -20,11 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidFinishLaunching(_ application: UIApplication) {
         // Create a Sentry client and start crash handler
-        do {
-            Client.shared = try Client(dsn: "https://b3041dff5fb841449d4aee8722c5a03c@sentry.io/1865550")
-            try Client.shared?.startCrashHandler()
-        } catch let error {
-            print("\(error)")
+        SentrySDK.start { options in
+            options.dsn = "https://b3041dff5fb841449d4aee8722c5a03c@sentry.io/1865550"
         }
 
         // Set up iCloud sync engine

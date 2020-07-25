@@ -1,19 +1,19 @@
 PODS:
   - ActiveLabel (1.1.0)
-  - IceCream (1.13.0):
+  - IceCream (1.13.1):
     - RealmSwift
-  - Realm (4.3.2):
-    - Realm/Headers (= 4.3.2)
-  - Realm/Headers (4.3.2)
-  - RealmSwift (4.3.2):
-    - Realm (= 4.3.2)
-  - RxRealm (2.0.0):
-    - RealmSwift (~> 4.0)
+  - Realm (5.3.2):
+    - Realm/Headers (= 5.3.2)
+  - Realm/Headers (5.3.2)
+  - RealmSwift (5.3.2):
+    - Realm (= 5.3.2)
+  - RxRealm (3.1.0):
+    - RealmSwift (~> 5.2)
     - RxSwift (~> 5.0)
-  - RxSwift (5.0.1)
-  - Sentry (4.4.1):
-    - Sentry/Core (= 4.4.1)
-  - Sentry/Core (4.4.1)
+  - RxSwift (5.1.1)
+  - Sentry (5.1.10):
+    - Sentry/Core (= 5.1.10)
+  - Sentry/Core (5.1.10)
 
 DEPENDENCIES:
   - ActiveLabel
@@ -21,7 +21,7 @@ DEPENDENCIES:
   - RealmSwift
   - RxRealm
   - RxSwift
-  - Sentry (from `https://github.com/getsentry/sentry-cocoa.git`, tag `4.4.1`)
+  - Sentry
 
 SPEC REPOS:
   trunk:
@@ -31,26 +31,17 @@ SPEC REPOS:
     - RealmSwift
     - RxRealm
     - RxSwift
-
-EXTERNAL SOURCES:
-  Sentry:
-    :git: https://github.com/getsentry/sentry-cocoa.git
-    :tag: 4.4.1
-
-CHECKOUT OPTIONS:
-  Sentry:
-    :git: https://github.com/getsentry/sentry-cocoa.git
-    :tag: 4.4.1
+    - Sentry
 
 SPEC CHECKSUMS:
   ActiveLabel: 5e3f4de79a1952d4604b845a0610d4776e4b82b3
-  IceCream: 48d6eda3b989c410583a8469e009f24ae9740d81
-  Realm: 5e92902e2875dff4bb0fd02f67bb737c3d5db2bc
-  RealmSwift: 9a360fc7bae04fc2e308a34fbd899d5faa2d6b22
-  RxRealm: 900f5c7e6f0a2d6527b56eaf7283f3035ec1e8ba
-  RxSwift: e2dc62b366a3adf6a0be44ba9f405efd4c94e0c4
-  Sentry: 5d312a04e369154aeac616214f4dfc3cbcc8b296
+  IceCream: 0447d87b55df85651dd60b15712cef64dbe1cb54
+  Realm: c6794276ca8884808ba168a22f9d71362b170b85
+  RealmSwift: 42ec6cec3170aeeda407f797f07268a7d055ebc7
+  RxRealm: 50e5fe5c1f22518205afbb313fbc5580d73bc586
+  RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
+  Sentry: 8715e88b813bde9ad37aead365d5b04ac7302153
 
-PODFILE CHECKSUM: 36c79b9c2cb331a8efe503ef1acec060d23cc476
+PODFILE CHECKSUM: 67204fda04bb4cdacfd2c19611d2aaed9dadf7af
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.9.1
