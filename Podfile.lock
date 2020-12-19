@@ -1,19 +1,26 @@
 PODS:
   - ActiveLabel (1.1.0)
-  - IceCream (1.13.1):
+  - IceCream (1.13.2):
     - RealmSwift
-  - Realm (5.3.2):
-    - Realm/Headers (= 5.3.2)
-  - Realm/Headers (5.3.2)
-  - RealmSwift (5.3.2):
-    - Realm (= 5.3.2)
-  - RxRealm (3.1.0):
-    - RealmSwift (~> 5.2)
-    - RxSwift (~> 5.0)
+  - Realm (10.5.0):
+    - Realm/Headers (= 10.5.0)
+  - Realm/Headers (10.5.0)
+  - RealmSwift (10.5.0):
+    - Realm (= 10.5.0)
+  - RxCocoa (5.1.1):
+    - RxRelay (~> 5)
+    - RxSwift (~> 5)
+  - RxRealm (4.0.2):
+    - Realm (~> 10.2)
+    - RealmSwift (~> 10.2)
+    - RxCocoa (~> 5.1)
+    - RxSwift (~> 5.1)
+  - RxRelay (5.1.1):
+    - RxSwift (~> 5)
   - RxSwift (5.1.1)
-  - Sentry (5.1.10):
-    - Sentry/Core (= 5.1.10)
-  - Sentry/Core (5.1.10)
+  - Sentry (6.0.12):
+    - Sentry/Core (= 6.0.12)
+  - Sentry/Core (6.0.12)
 
 DEPENDENCIES:
   - ActiveLabel
@@ -29,19 +36,23 @@ SPEC REPOS:
     - IceCream
     - Realm
     - RealmSwift
+    - RxCocoa
     - RxRealm
+    - RxRelay
     - RxSwift
     - Sentry
 
 SPEC CHECKSUMS:
   ActiveLabel: 5e3f4de79a1952d4604b845a0610d4776e4b82b3
-  IceCream: 0447d87b55df85651dd60b15712cef64dbe1cb54
-  Realm: c6794276ca8884808ba168a22f9d71362b170b85
-  RealmSwift: 42ec6cec3170aeeda407f797f07268a7d055ebc7
-  RxRealm: 50e5fe5c1f22518205afbb313fbc5580d73bc586
+  IceCream: 9335dfa136e260ff4ba1b969a49061f5661441d3
+  Realm: e1c22c3d83b229afb70ebc10e1771c91e9542d12
+  RealmSwift: 6fc078d9d3fd7e58c71bfdbb694e252462f112a5
+  RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
+  RxRealm: cc14831d5527f10fbfe547d0922cae129a07ba9d
+  RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
-  Sentry: 8715e88b813bde9ad37aead365d5b04ac7302153
+  Sentry: 8ffcfe3416e0a58b90bb1ae319e8e8a13022a03e
 
 PODFILE CHECKSUM: 67204fda04bb4cdacfd2c19611d2aaed9dadf7af
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.10.0
