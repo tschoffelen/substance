@@ -74,7 +74,20 @@ class ShareViewController: SLComposeServiceViewController {
             Util.realm.add(item)
         }
 
-        self.extensionContext!.completeRequest(returningItems: [], completionHandler: nil)
+        let json: [String: Any] = ["note": body]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        let url = URL(string: "https://v3zazo7g3g.execute-api.eu-west-1.amazonaws.com/notes")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("\(String(describing: jsonData?.count))", forHTTPHeaderField: "Content-Length")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = jsonData
+
+        let task = URLSession.shared.dataTask(with: request) {_,_,_ in
+            self.extensionContext!.completeRequest(returningItems: [], completionHandler: nil)
+        }
+
+        task.resume()
     }
 
 }

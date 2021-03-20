@@ -274,9 +274,24 @@ class AddItemViewController: UIViewController, UICollectionViewDelegate, UIColle
         try! Util.realm.write {
             Util.realm.add(item)
         }
+        
+        let json: [String: Any] = ["note": self.bodyLabel!.text!]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        let url = URL(string: "https://v3zazo7g3g.execute-api.eu-west-1.amazonaws.com/notes")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        //request.setValue("\(String(describing: jsonData?.count))", forHTTPHeaderField: "Content-Length")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = jsonData
 
-        self.dismiss(animated: true)
-        self.saveButton?.isEnabled = true
+        let task = URLSession.shared.dataTask(with: request) { _,_,_ in
+            DispatchQueue.main.async {
+                self.dismiss(animated: true)
+                self.saveButton?.isEnabled = true
+            }
+        }
+
+        task.resume()
     }
 
     func collectionView(_ collectionView: UICollectionView,
