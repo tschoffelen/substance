@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    var syncEngine: SyncEngine?
+//    var syncEngine: SyncEngine?
 
     func applicationDidFinishLaunching(_ application: UIApplication) {
         // Create a Sentry client and start crash handler
@@ -25,10 +25,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         // Set up iCloud sync engine
-        syncEngine = SyncEngine(objects: [
-                SyncObject<TimelineItem>(),
-                SyncObject<Activity>()
-            ], databaseScope: .private)
+//        syncEngine = SyncEngine(objects: [
+//                SyncObject<TimelineItem>(),
+//                SyncObject<Activity>()
+//            ], databaseScope: .private)
 
         // Enable remote notifications for iCloud sync
         application.registerForRemoteNotifications()

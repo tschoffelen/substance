@@ -12,15 +12,15 @@ import IceCream
 
 class ShareViewController: SLComposeServiceViewController {
 
-    var syncEngine: SyncEngine?
+//    var syncEngine: SyncEngine?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        syncEngine = SyncEngine(objects: [
-            SyncObject<TimelineItem>(),
-            SyncObject<Activity>()
-        ], databaseScope: .private)
+//        syncEngine = SyncEngine(objects: [
+//            SyncObject<TimelineItem>(),
+//            SyncObject<Activity>()
+//        ], databaseScope: .private)
     }
 
     override func isContentValid() -> Bool {
@@ -76,7 +76,7 @@ class ShareViewController: SLComposeServiceViewController {
 
         let json: [String: Any] = ["note": body]
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
-        let url = URL(string: "https://v3zazo7g3g.execute-api.eu-west-1.amazonaws.com/notes")!
+        let url = URL(string: "https://productivity-api.schof.co/notes")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("\(String(describing: jsonData?.count))", forHTTPHeaderField: "Content-Length")

@@ -277,10 +277,9 @@ class AddItemViewController: UIViewController, UICollectionViewDelegate, UIColle
         
         let json: [String: Any] = ["note": self.bodyLabel!.text!]
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
-        let url = URL(string: "https://v3zazo7g3g.execute-api.eu-west-1.amazonaws.com/notes")!
+        let url = URL(string: "https://productivity-api.schof.co/notes")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        //request.setValue("\(String(describing: jsonData?.count))", forHTTPHeaderField: "Content-Length")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = jsonData
 
